@@ -1,0 +1,55 @@
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css"
+    integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
+<h3>R0</h3>
+<script>
+    $(document).ready(function() {
+        $('#year').val(new Date().getFullYear())
+        $('#year2').val(new Date().getFullYear())
+    })
+</script>
+<form id="nyForm" class="pure-form pure-form-stacked">
+    <label for="crop">Crop</label>
+    <select class="pure-input-1-2" name="crop" id="crop">
+        <option value=""></option>
+        <option value="TA">Wheat</option>
+        <option value="ZM">Corn</option>
+        <option value="GH">Cotton</option>
+        <option value="GM">Soy</option>
+        <option value="BN">Canola</option>
+    </select>
+    <label for="site">First letter of the site</label>
+    <input class="pure-input-1-2" type="text" id="site" name="site" pattern="[A-Z]{1}" title="Two Letter Code" required>
+    <label for="year">Calendar year</label>
+    <input class="pure-input-1-2" type="number" id="year" name="year" pattern=".{2,}" title="Two Digit Number" required>
+    <label for="control" class="pure-checkbox">
+        <input type="checkbox" id="control" value="" /> Control
+    </label>
+    <input class="pure-button pure-button-primary" type="submit" name="submit" id="r0Btn">
+    <input class="pure-button" type="reset" value="Reset">
+</form>
+<div class="overlay-bg2">
+    <div>
+        <h3>Your Protocol Name:</h3>
+        <p id="r0Content"></p>
+        <button class="close-btn2 pure-button">Close</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".overlay-bg2").hide();
+        $("#r0Btn").on("click", function (even) {
+            even.preventDefault();
+            var cropInfo = $("#crop").val();
+            var siteInfo = $("#site").val().substring(0, 1);
+            var yearInfo = $("#year").val();
+            var conInfo = $("#control").is(':checked') ? 'Control' : '';
+            $("#r0Content").text("");
+            $("#r0Content").append(cropInfo + siteInfo + yearInfo + conInfo);
+            $(".overlay-bg2").show();
+        });
+        $(".close-btn2").on("click", function () {
+            $(".overlay-bg2").hide();
+        });
+    });
+</script>
