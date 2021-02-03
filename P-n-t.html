@@ -1,0 +1,173 @@
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css"
+    integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
+<h3>Non R0</h3>
+<script>
+    $(document).ready(function() {
+        $('#year').val(new Date().getFullYear())
+        $('#year2').val(new Date().getFullYear())
+    })
+</script>
+<form id="myForm" class="pure-form pure-form-stacked">
+    <label for="WorkFlow">WorkFlow</label>
+    <select class="pure-input-1-2" name="WorkFlow" id="WorkFlow">
+        <option value=""></option>
+        <option value="RC_">Rapid Cycle</option>
+        <option value="eSDI_">eSDI</option>
+        <option value="SS_">Standard Short Day</option>
+        <option value="ST_">Standard Seed Production</option>
+        <option value="FL_">Fly Protocol</option>
+        <option value="NF_">No Flies</option>
+        <option value="EXP_">Experimental Protocol</option>
+        <option value="BIO_"> Bioassay</option>
+        <option value="PROP_">Propagation Only</option>
+    </select>
+    <label for="Project">Project</label>
+    <select class="pure-input-1-2" name="Project" id="Project">
+        <option value=""></option>
+        <option value="LEP-">Any Lep Project</option>
+        <option value="CRW-">Any CRW Project</option>
+        <option value="COL-">Any Coleop</option>
+        <option value="HT-">Any Ht Project</option>
+        <option value="GE-">Gene Editing</option>
+        <option value="YLD-">Any Yield Project</option>
+        <option value="BG-">Any Bollgard Project</option>
+        <option value="HD-">Any Hemipteran Project</option>
+        <option value="DT-">Disease Traits</option>
+        <option value="SIP-">Any Soy Insect Protection Projects</option>
+        <option value="MIC-">Any Microbial Project</option>
+        <option value="SI-">System Improvements</option>
+        <option value="TST-">Trait Stacking Technologies</option>
+    </select>
+    <label for="VCR">VCR Number</label>
+    <input class="pure-input-1-2" type="number" id="VCR" name="VCR" required>
+    <label for="ChipScar1" class="pure-radio">
+        <input id="ChipScar1" type="radio" name="ChipScar" value="_CH"> Chipped
+    </label>
+    <label for="ChipScar2" class="pure-radio">
+        <input id="ChipScar2" type="radio" name="ChipScar" value="_SC"> Scarified
+    </label>
+    <label for="ChipScar3" class="pure-radio">
+        <input id="ChipScar3" type="radio" name="ChipScar" value="" checked> None
+    </label>
+    <input type="submit" class="pure-button pure-button-primary" name="Non R0" id="nonR0Btn">
+    <input type="reset" class="pure-button" value="Reset">
+</form>
+<div class="overlay-bg1">
+    <div>
+        <h3>Your Protocol Name:</h3>
+        <p id="nonR0content"></p>
+        <button class="close-btn1 pure-button">Close</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".overlay-bg1").hide();
+        $("#nonR0Btn").on("click", function (even) {
+            even.preventDefault();
+            var workInfo = $("#WorkFlow").val();
+            var proInfo = $("#Project").val();
+            var vcrInfo = $("#VCR").val();
+            var csInfo = $('input[name="ChipScar"]:checked').val();
+            $("#nonR0content").text("");
+            $("#nonR0content").append(workInfo + proInfo + vcrInfo + csInfo);
+            $(".overlay-bg1").show();
+        });
+        $(".close-btn1").on("click", function () {
+            $(".overlay-bg1").hide();
+        });
+    });
+</script>
+<h3>R0</h3>
+<form id="nyForm" class="pure-form pure-form-stacked">
+    <label for="crop">Crop</label>
+    <select class="pure-input-1-2" name="crop" id="crop">
+        <option value=""></option>
+        <option value="TA">Wheat</option>
+        <option value="ZM">Corn</option>
+        <option value="GH">Cotton</option>
+        <option value="GM">Soy</option>
+        <option value="BN">Canola</option>
+    </select>
+    <label for="site">First letter of the site</label>
+    <input class="pure-input-1-2" type="text" id="site" name="site" pattern="[A-Z]{1}" title="Two Letter Code" required>
+    <label for="year">Calendar year</label>
+    <input class="pure-input-1-2" type="number" id="year" name="year" pattern=".{2,}" title="Two Digit Number" required>
+    <label for="control" class="pure-checkbox">
+        <input type="checkbox" id="control" value="" /> Control
+    </label>
+    <input class="pure-button pure-button-primary" type="submit" name="submit" id="r0Btn">
+    <input class="pure-button" type="reset" value="Reset">
+</form>
+<div class="overlay-bg2">
+    <div>
+        <h3>Your Protocol Name:</h3>
+        <p id="r0Content"></p>
+        <button class="close-btn2 pure-button">Close</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".overlay-bg2").hide();
+        $("#r0Btn").on("click", function (even) {
+            even.preventDefault();
+            var cropInfo = $("#crop").val();
+            var siteInfo = $("#site").val().substring(0, 1);
+            var yearInfo = $("#year").val();
+            var conInfo = $("#control").is(':checked') ? 'Control' : '';
+            $("#r0Content").text("");
+            $("#r0Content").append(cropInfo + siteInfo + yearInfo + conInfo);
+            $(".overlay-bg2").show();
+        });
+        $(".close-btn2").on("click", function () {
+            $(".overlay-bg2").hide();
+        });
+    });
+</script>
+<h3>Donor/Female</h3>
+<form id="xzForm" class="pure-form pure-form-stacked">
+        <label for="DF1" class="pure-radio">
+            <input id="DF1" type="radio" name="donFem" value="DM"> Donor
+        </label>
+        <label for="DF2" class="pure-radio">
+            <input id="DF2" type="radio" name="donFem" value="FS"> Female
+        </label>
+        <label for="DF3" class="pure-radio">
+            <input id="DF3" type="radio" name="donFem" value=""
+        </label>
+    </select>
+    <label for="year">Calendar year</label>
+    <input class="pure-input-1-2" type="number" id="year2" name="year2" pattern=".{2,}" title="Two Digit Number"
+        required>
+    <label for="pedigree">Pedigree</label>
+    <input class="pure-input-1-2" type="text" id="pedigree" name="pedigree"></input>
+    <input class="pure-button pure-button-primary" type="submit" name="submit" id="submitBtn3">
+    <input class="pure-button" type="reset" value="Reset">
+</form>
+<div class="overlay-bg3">
+    <div>
+        <h3>Your Protocol Name:</h3>
+        <p id="doncontent"></p>
+        <button class="close-btn3 pure-button">Close</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".overlay-bg3").hide();
+        $("#submitBtn3").on("click", function (even) {
+            even.preventDefault();
+            var dFInfo = $('input[name="donFem"]:checked').val();
+            var pedInfo = $("#pedigree").val();
+            var year2Info = $("#year2").val();
+            $("#doncontent").text("");
+            $("#doncontent").append(dFInfo + "CE" + year2Info + "_" + pedInfo);
+            $(".overlay-bg3").show();
+        });
+        $(".close-btn3").on("click", function () {
+            $(".overlay-bg3").hide();
+        });
+    });
+</script>
+<h6>If there are any revisions or questions please contact me at brandon.schmidt@bayer.com</h6>
+<!-- Created by Brandon Schmidt 1/6/2021 If there are any revisions or questions please contact me at brandon.schmidt@bayer.com -->
+
